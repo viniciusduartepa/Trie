@@ -20,11 +20,11 @@ private:
     Node *root;
 public:
     void Insert(char keys[]);
-    /*void Show(){
+    void Show(){
     cout << root->pNode[12]->pNode[4]->pNode[20]->word << " " << root->pNode[24]->word << " " << root->pNode[12]->pNode[8]->word;
     cout << " " << root->pNode[12]->pNode[4]->pNode[11]->word << " " << root->pNode[1]->word << " " << root->pNode[12]->pNode[4]->pNode[26]->word;
-    cout << " " << root->pNode[12]->pNode[4]->pNode[28]->word;
-    }*/
+    cout << " " << root->pNode[12]->pNode[4]->pNode[27]->word;
+    }
     Trie() {
         root=nullptr;
     };
@@ -36,10 +36,10 @@ void Trie::Insert(char keys[]) {
         return;
     }
     Node *p=root;
-    for(int i=0;; i++) {
+    for(int i=0;i<=strlen(keys); i++) {
         int index;
         if(keys[i]=='\0') index=26;
-        else if(keys[i]=='-') index=28;
+        else if(keys[i]=='-') index=27;
         else index=keys[i]-'a';
         if(p->pNode[index]==nullptr) {
             if(p->word==nullptr) {
@@ -51,16 +51,16 @@ void Trie::Insert(char keys[]) {
                     return;
                 Node *p2=p;
                 int index1,index2;
-                for(int j=i; keys[j]!='\0'; j++) {
+                for(int j=i;j<=strlen(keys); j++) {
                     if(*(p->word+j)==keys[j]) {
                         if(keys[i]=='\0') index1=26;
-                        else if(keys[i]=='-') index1=28;
+                        else if(keys[i]=='-') index1=27;
                         else index1=keys[i]-'a';
                         p2->pNode[index1]=new Node();
                         p2=p2->pNode[index1];
                     } else {
                         if(keys[i]=='\0') index1=26;
-                        else if(keys[i]=='-') index1=28;
+                        else if(keys[i]=='-') index1=27;
                         else index1=keys[i]-'a';
                         if(*(p->word+j)=='\0')  index2=26;
                         else if(*(p->word+j)=='-')  index2=27;
@@ -80,7 +80,7 @@ void Trie::Insert(char keys[]) {
     }
 }
 int main() {
-    /*Trie t;
+    Trie t;
     t.Insert("meu");
     t.Insert("you");
     t.Insert("mio");
@@ -88,6 +88,8 @@ int main() {
     t.Insert("bosta");
     t.Insert("me");
     t.Insert("me-");
-    t.Show();*/
+    t.Insert("me");
+    t.Insert("meu");
+    t.Show();
     return 0;
 }
