@@ -18,14 +18,15 @@ private:
         };
     };
     Node *root;
+    void Insert(char keys[],Node *p,int i);
+    void Insert(char keys[],char aux[],Node *p,int i);
+    void Suggest(Node *p);
 public:
     void Insert(char keys[]);
     void Search(char keys[]);
-    void Suggest(Node *p);
-    void Show(){
-    cout << root->pNode[12]->pNode[4]->pNode[20]->word << " " << root->pNode[24]->word << " " << root->pNode[12]->pNode[8]->word;
-    cout << " " << root->pNode[12]->pNode[4]->pNode[11]->word << " " << root->pNode[1]->word << " " << root->pNode[12]->pNode[4]->pNode[26]->word;
-    cout << " " << root->pNode[12]->pNode[4]->pNode[27]->word;
+    void Show() {
+        cout << root->pNode[12]->pNode[4]->pNode[26]->word<< " " << root->pNode[14]->word;
+        cout << " " << root->pNode[12]->pNode[4]->pNode[20]->word;
     };
     Trie() {
         root=nullptr;
@@ -36,61 +37,64 @@ void Trie::Insert(char keys[]) {
         root=new Node();
         root->word=keys;
         return;
+    } else {
+        Insert(keys,root,0);
+        return;
     }
-    Node *p=root;
-    for(int i=0; i<=strlen(keys); i++) {
-        int index;
-        if(keys[i]=='\0')
-            index=26;
-        else if(keys[i]=='-')
-            index=27;
-        else
-            index=keys[i]-'a';
-        if(p->pNode[index]==nullptr) {
-            if(p->word==nullptr) {
-                p->pNode[index]=new Node();
-                p->pNode[index]->word=keys;
+}
+void Trie::Insert(char keys[],Node *p,int i) {
+    int index;
+    if(keys[i]=='\0')
+        index=26;
+    else if(keys[i]=='-')
+        index=27;
+    else
+        index=keys[i]-'a';
+    if(p->pNode[index]==nullptr) {
+        if(p->word==nullptr) {
+            p->pNode[index]=new Node();
+            p->pNode[index]->word=keys;
+            return;
+        } else {
+            if(strcmp(keys,p->word)==0) {
                 return;
             } else {
-                if(strcmp(keys,p->word)==0)
-                    return;
-                Node *p2=p;
-                int index1,index2;
-                for(int j=i; j<=strlen(keys); j++) {
-                    if(*(p->word+j)==keys[j]) {
-                        if(keys[i]=='\0')
-                            index1=26;
-                        else if(keys[i]=='-')
-                            index1=27;
-                        else
-                            index1=keys[i]-'a';
-                        p2->pNode[index1]=new Node();
-                        p2=p2->pNode[index1];
-                    } else {
-                        if(keys[i]=='\0')
-                            index1=26;
-                        else if(keys[i]=='-')
-                            index1=27;
-                        else
-                            index1=keys[i]-'a';
-                        if(*(p->word+j)=='\0')
-                            index2=26;
-                        else if(*(p->word+j)=='-')
-                            index2=27;
-                        else
-                            index2=*(p->word+j)-'a';
-                        p2->pNode[index1]=new Node();
-                        p2->pNode[index1]->word=keys;
-                        p2->pNode[index2]=new  Node();
-                        p2->pNode[index2]->word=p->word;
-                        p->word=nullptr;
-                        return;
-                    }
-                }
+                char *aux=p->word;
+                p->word=nullptr;
+                Insert(keys,aux,p,i);
+                return;
             }
-        } else {
-            p=p->pNode[index];
         }
+    } else {
+        Insert(keys,p->pNode[index],(i+1));
+        return;
+    }
+}
+void Trie::Insert(char keys[],char aux[],Node *p,int i) {
+    int index;
+    if(keys[i]=='\0')
+        index=26;
+    else if(keys[i]=='-')
+        index=27;
+    else
+        index=keys[i]-'a';
+    if(keys[i]==aux[i]) {
+        p->pNode[index]=new Node();
+        Insert(keys,aux,p->pNode[index],(i+1));
+        return;
+    } else {
+        int index2;
+        if(aux[i]=='\0')
+            index2=26;
+        else if(aux[i]=='-')
+            index2=27;
+        else
+            index2=aux[i]-'a';
+        p->pNode[index]=new Node();
+        p->pNode[index]->word=keys;
+        p->pNode[index2]=new Node();
+        p->pNode[index2]->word=aux;
+        return;
     }
 }
 void Trie::Search(char keys[]) {
@@ -108,16 +112,14 @@ void Trie::Search(char keys[]) {
         else
             index=keys[i]-'a';
         if(p->pNode[index]==nullptr) {
-            if(p->word==nullptr){
+            if(p->word==nullptr) {
                 Suggest(p);
                 return;
-            }
-            else {
-                if(strcmp(p->word,keys)==0){
+            } else {
+                if(strcmp(p->word,keys)==0) {
                     cout << "\n" << keys << " esta na arvore";
                     return;
-                }
-                else{
+                } else {
                     cout << "\n" << p->word << " encontrado no lugar de " << keys;
                     return;
                 }
@@ -126,26 +128,20 @@ void Trie::Search(char keys[]) {
             p=p->pNode[index];
     }
 }
-void Trie::Suggest(Node *p){
-    for(int i=0;i<CONST;i++){
-        if(p->pNode[i]!=nullptr)Suggest((p->pNode[i]));
+void Trie::Suggest(Node *p) {
+    for(int i=0; i<CONST; i++) {
+        if(p->pNode[i]!=nullptr)
+            Suggest((p->pNode[i]));
     }
-    if(p->word!=nullptr)cout << " sugerir" << p->word;
+    if(p->word!=nullptr)
+        cout << " sugerir" << p->word;
 }
 
 int main() {
     Trie t;
-    t.Insert("meu");
-    t.Insert("you");
-    t.Insert("mio");
-    t.Insert("melhor");
-    t.Insert("bosta");
     t.Insert("me");
-    t.Insert("me-");
-    t.Insert("bosgo");
+    t.Insert("ola");
     t.Insert("meu");
-    t.Search("bos");
-
-    //t.Show();
+    t.Search("o");
     return 0;
 }
