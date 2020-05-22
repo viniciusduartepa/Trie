@@ -24,7 +24,7 @@ void Trie::Insert(char keys[],Node *p,int i) {
     else if(keys[i]=='-')
         index=27;
     else
-        index=keys[i]-'a';
+        index=keys[i]-'A';
     if(p->pNode[index]==nullptr) {//caso para aquele chave o no nao apresente filhos
         if(p->word==nullptr) {//caso nao seja um nó externo
             p->pNode[index]=new Node();
@@ -51,7 +51,7 @@ void Trie::Insert(char keys[],char aux[],Node *p,int i) {//inserção no caso de u
     else if(keys[i]=='-')
         index=27;
     else
-        index=keys[i]-'a';
+        index=keys[i]-'A';
     if(keys[i]==aux[i]) {//se as chaves da duas palavras forem iguais
         p->pNode[index]=new Node();
         Insert(keys,aux,p->pNode[index],(i+1));
@@ -63,7 +63,7 @@ void Trie::Insert(char keys[],char aux[],Node *p,int i) {//inserção no caso de u
         else if(aux[i]=='-')
             index2=27;
         else
-            index2=aux[i]-'a';
+            index2=aux[i]-'A';
         p->pNode[index]=new Node();
         p->pNode[index]->word=keys;
         p->pNode[index2]=new Node();
@@ -87,7 +87,7 @@ void Trie::Search(char keys[],Node *p,int i) {
     else if(keys[i]=='-')
         index=27;
     else
-        index=keys[i]-'a';
+        index=keys[i]-'A';
     if(p->pNode[index]==nullptr) {//caso o no nao tenha filhos para aquela chave
         if(p->word==nullptr) {//caso nao tenha encontrado nenhuma palavra
             Suggest(p);//sugere todas palavras que tem aquele prefixo

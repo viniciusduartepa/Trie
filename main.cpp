@@ -5,10 +5,9 @@ using namespace std;
 
 int main() {
     Trie t;
-    t.Insert("me-");
-    t.Insert("ola");
-    t.Insert("meu");
-    t.Insert("mosso");
-    t.Search("m");
+    t.Insert("MEU");
+    t.Insert("MANO");
+    t.Insert("MULHER");
+    t.Search("M");
     return 0;
 }
