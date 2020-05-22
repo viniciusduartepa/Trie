@@ -21,6 +21,7 @@ private:
 public:
     void Insert(char keys[]);
     void Search(char keys[]);
+    void Suggest(Node *p);
     void Show(){
     cout << root->pNode[12]->pNode[4]->pNode[20]->word << " " << root->pNode[24]->word << " " << root->pNode[12]->pNode[8]->word;
     cout << " " << root->pNode[12]->pNode[4]->pNode[11]->word << " " << root->pNode[1]->word << " " << root->pNode[12]->pNode[4]->pNode[26]->word;
@@ -98,7 +99,7 @@ void Trie::Search(char keys[]) {
         return;
     }
     Node *p=root;
-    for(int i=0; i<=strlen(keys); i++) {
+    for(int i=0;; i++) {
         int index;
         if(keys[i]=='\0')
             index=26;
@@ -108,7 +109,7 @@ void Trie::Search(char keys[]) {
             index=keys[i]-'a';
         if(p->pNode[index]==nullptr) {
             if(p->word==nullptr){
-                cout << "\nNada encontrado";
+                Suggest(p);
                 return;
             }
             else {
@@ -123,9 +124,15 @@ void Trie::Search(char keys[]) {
             }
         } else
             p=p->pNode[index];
-
     }
 }
+void Trie::Suggest(Node *p){
+    for(int i=0;i<CONST;i++){
+        if(p->pNode[i]!=nullptr)Suggest((p->pNode[i]));
+    }
+    if(p->word!=nullptr)cout << " sugerir" << p->word;
+}
+
 int main() {
     Trie t;
     t.Insert("meu");
@@ -135,9 +142,10 @@ int main() {
     t.Insert("bosta");
     t.Insert("me");
     t.Insert("me-");
-    t.Insert("me");
+    t.Insert("bosgo");
     t.Insert("meu");
-    t.Search("casa");
+    t.Search("bos");
+
     //t.Show();
     return 0;
 }
