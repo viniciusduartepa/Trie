@@ -3,6 +3,7 @@
 #include <cstring>
 
 using namespace std;
+
 #define CONST 28
 
 class Trie {
@@ -20,6 +21,7 @@ private:
     Node *root;
     void Insert(char keys[],Node *p,int i);
     void Insert(char keys[],char aux[],Node *p,int i);
+    void Search(char keys[],Node *p,int i);
     void Suggest(Node *p);
 public:
     void Insert(char keys[]);
@@ -101,32 +103,34 @@ void Trie::Search(char keys[]) {
     if(root==nullptr) {
         cout << "\narvore vazia";
         return;
+    }else {
+        Search(keys,root,0);
+        return;
     }
-    Node *p=root;
-    for(int i=0;; i++) {
-        int index;
-        if(keys[i]=='\0')
-            index=26;
-        else if(keys[i]=='-')
-            index=27;
-        else
-            index=keys[i]-'a';
-        if(p->pNode[index]==nullptr) {
-            if(p->word==nullptr) {
+}
+void Trie::Search(char keys[],Node *p,int i) {
+    int index;
+    if(keys[i]=='\0')
+        index=26;
+    else if(keys[i]=='-')
+        index=27;
+    else
+        index=keys[i]-'a';
+        if(p->pNode[index]==nullptr){
+            if(p->word==nullptr){
                 Suggest(p);
                 return;
-            } else {
-                if(strcmp(p->word,keys)==0) {
-                    cout << "\n" << keys << " esta na arvore";
-                    return;
-                } else {
-                    cout << "\n" << p->word << " encontrado no lugar de " << keys;
-                    return;
+            }else{
+            if(strcmp(keys,p->word)==0){
+                cout << keys << " esta na lista";
+            }else{
+                cout << p->word  << " encontrado no lugar de " << keys;
                 }
             }
-        } else
-            p=p->pNode[index];
-    }
+        }else{
+        Search(keys,p->pNode[index],i+1);
+        return;
+        }
 }
 void Trie::Suggest(Node *p) {
     for(int i=0; i<CONST; i++) {
@@ -139,9 +143,9 @@ void Trie::Suggest(Node *p) {
 
 int main() {
     Trie t;
-    t.Insert("me");
+    t.Insert("me-");
     t.Insert("ola");
     t.Insert("meu");
-    t.Search("o");
+    t.Search("me-");
     return 0;
 }
