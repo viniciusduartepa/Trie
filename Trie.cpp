@@ -33,11 +33,11 @@ void Trie::Insert(char keys[],Node *p,int i) {
             p->pNode[index]->word=keys;
             return;
         } else {//caso seja um no externo
-            if(strcmp(keys,p->word)==0) {//palavra ja esta na lista
-                return;
-            } else {//caso encontre uma palavra diferente
+            if(strcmp(keys,p->word)!=0) {//palavra ja esta na lista
                 Insert(keys,p->word,p,i);
                 p->word=nullptr;
+                return;
+            } else {//caso encontre uma palavra diferente
                 return;
             }
         }
@@ -116,16 +116,16 @@ void Trie::Suggest(Node *p) {//sugere todas a palavras que compartilham daquele 
 }
 void Trie::Creator() {
     fstream file;
-    file.open("test.txt",fstream::in);
-    if(file.is_open()){
-                string line;
-            while(getline(file,line)){
-            char *aux;
-            strcpy(aux,line.c_str());
-            Insert(aux);
-            }
+    file.open("palavras.txt",fstream::in);
+    if(file.is_open()) {
+        string line;
+        while(getline(file,line)) {
+            char *c=new char;
+            strcpy(c,line.c_str());
+            Insert(c);
         }
         file.close();
     }
+}
 
 

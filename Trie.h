@@ -26,9 +26,10 @@ private:
     void Suggest(Node *p);//função de sugestão de palavras
     void Creator();
 public:
-     void Show(){
+    void Show() {
         cout << "raiz:";
-        if(root->word!=nullptr)cout << root->word;
+        if(root->word!=nullptr)
+            cout << root->word;
     };
     void Insert(char keys[]);//primeira etapa da função insert
     void Search(char keys[]);//primeira etapa da função search

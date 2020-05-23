@@ -9,8 +9,16 @@ using namespace std;
 
 int main() {
     Trie t;
-    t.Search("M");
-    t.Search("O");
+    string a;
+    cout << "\nDigite a palavra que deseja pesquisar:";
+    cin >> a;
+    while(a!="1") {
+        char *c;
+        strcpy(c,a.c_str());
+        t.Search(c);
+        cout << "\nDigite a palavra que deseja pesquisar:";
+        cin >> a;
+    }
     //t.Show();
     return 0;
 }
