@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string.h>
 #include <cstring>
+#include <fstream>
+#include <string>
 #include "Trie.h"
 
 #define CONST 28
@@ -112,3 +114,18 @@ void Trie::Suggest(Node *p) {//sugere todas a palavras que compartilham daquele 
     if(p->word!=nullptr)
         cout << " sugerir" << p->word;
 }
+void Trie::Creator() {
+    fstream file;
+    file.open("test.txt",fstream::in);
+    if(file.is_open()){
+                string line;
+            while(getline(file,line)){
+            char *aux;
+            strcpy(aux,line.c_str());
+            Insert(aux);
+            }
+        }
+        file.close();
+    }
+
+

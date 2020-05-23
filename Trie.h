@@ -1,7 +1,11 @@
 #ifndef TRIE_H_INCLUDED
 #define TRIE_H_INCLUDED
 
+#include <iostream>
+
 #define CONST 28//n° de filhos do no
+
+using namespace std;
 
 class Trie {
 private:
@@ -20,12 +24,18 @@ private:
     void Insert(char keys[],char aux[],Node *p,int i);//terceira etapa da função insert
     void Search(char keys[],Node *p,int i);//segunda etapa da função search
     void Suggest(Node *p);//função de sugestão de palavras
+    void Creator();
 public:
+     void Show(){
+        cout << "raiz:";
+        if(root->word!=nullptr)cout << root->word;
+    };
     void Insert(char keys[]);//primeira etapa da função insert
     void Search(char keys[]);//primeira etapa da função search
 
     Trie() {//construtor da raiz
         root=nullptr;
+        Creator();
     };
 };
 
