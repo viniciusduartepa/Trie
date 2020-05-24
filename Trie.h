@@ -3,6 +3,7 @@
 #define TRIE_H_INCLUDED
 
 #include <iostream>
+#include <map>
 
 #define CONST 28//n° de filhos do no
 
@@ -24,7 +25,8 @@ private:
     void Insert(char keys[],Node *p,int i);//segunda etapa da função insert
     void Insert(char keys[],char aux[],Node *p,int i);//terceira etapa da função insert
     string Search(char keys[],Node *p,int i);//segunda etapa da função search
-    void Suggest(Node *p);//função de sugestão de palavras
+    string Suggest(char keys[],Node *p);//função de sugestão de palavras
+    void Suggest(char keys[],Node *p,map<int,string> &mp,int &mpi);
     void Creator();
 public:
 

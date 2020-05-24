@@ -3,6 +3,7 @@
 #include <cstring>
 #include <fstream>
 #include <string>
+#include <map>
 #include "Trie.h"
 
 #define CONST 28
@@ -90,12 +91,12 @@ string Trie::Search(char keys[],Node *p,int i) {
         index=keys[i]-'A';
     if(p->pNode[index]==nullptr) {//caso o no nao tenha filhos para aquela chave
         if(p->word==nullptr) {//caso nao tenha encontrado nenhuma palavra
-            return "SUGESTAO";//sugere todas palavras que tem aquele prefixo
+            return Suggest(keys,p);//sugere todas palavras que tem aquele prefixo
         } else {//caso tenha encontrado uma palavra
             if(strcmp(keys,p->word)==0) {//palavra encontrada
                 return keys;
             } else {//palavra diferente encontrada
-                return "SUGESTAO";
+                return Suggest(keys,p);
             }
         }
     } else {//caso o no tenha filhos para aquela chave analisa a proxima chave
@@ -103,17 +104,60 @@ string Trie::Search(char keys[],Node *p,int i) {
 
     }
 }
-void Trie::Suggest(Node *p) {//sugere todas a palavras que compartilham daquele no
-    for(int i=0; i<CONST; i++) {
-        if(p->pNode[i]!=nullptr)
-            Suggest((p->pNode[i]));
+string Trie::Suggest(char keys[],Node *p) {//sugere todas a palavras que compartilham daquele no
+    if(p->word!=nullptr){
+        int n;
+            cout << "1-DIGITAR UMA NOVA PALAVRA";
+            cout << "\n2-SUBSTITUIR " << keys << " POR " << p->word;
+            cout << "\n3-MANTER " << keys;
+            cout << "\nDIGITE SUA OPCAO:";
+            cin >> n;
+            if(n==1){
+                string str;
+                cout << "DIGITE A PALAVRA:";
+                cin >>str;
+                return str;
+            }else if(n==2) return p->word;
+            else return keys;
+    }else{
+        map<int,string> mp;
+        int n;
+        int mpi=3;
+        cout << "1-DIGITAR UMA NOVA PALAVRA";
+        cout << "\n2-MANTER " << keys;
+        Suggest(keys,p,mp,mpi);
+        cout << "\nDIGITE SUA OPCAO:";
+        cin >> n;
+         if(n==1){
+                string str;
+                cout << "DIGITE A PALAVRA:";
+                cin >>str;
+                return str;
+            }else if(n==2) return keys;
+            else{
+                for(auto x:mp){
+                    if(x.first==n)return x.second;
+                }
+            }
+            mp.clear();
+            mpi=3;
     }
-    if(p->word!=nullptr)
-        cout << " sugerir" << p->word;
+}
+void Trie::Suggest(char keys[],Node *p,map<int,string> &mp,int &mpi) {
+    for(int i=0;i<CONST;i++){
+        if(p->pNode[i]!=nullptr){
+            Suggest(keys,p->pNode[i],mp,mpi);
+        }
+    }
+    if(p->word!=nullptr){
+        mp[mpi]=p->word;
+        cout << "\n" << mpi <<"-SUBSTITUIR " << keys << " POR " << p->word;
+        mpi++;
+    }
 }
 void Trie::Creator() {
     fstream file;
-    file.open("palavras.txt",fstream::in);
+    file.open("test.txt",fstream::in);
     if(file.is_open()) {
         string line;
         while(getline(file,line)) {

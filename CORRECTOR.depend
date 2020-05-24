@@ -7,14 +7,16 @@
 	<fstream>
 	"Trie.h"
 
-1590288361 c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.h
+1590291327 c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.h
 	<iostream>
+	<map>
 
-1590288395 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.cpp
+1590291315 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.cpp
 	<iostream>
 	<string.h>
 	<cstring>
 	<fstream>
 	<string>
+	<map>
 	"Trie.h"
 
