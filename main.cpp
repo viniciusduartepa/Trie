@@ -12,10 +12,10 @@ int main() {
     string a;
     cout << "\nDigite a palavra que deseja pesquisar:";
     cin >> a;
-    while(a!="1") {
+    while(a!="1"){
         char *c;
         strcpy(c,a.c_str());
-        t.Search(c);
+        cout << t.Search(c);
         cout << "\nDigite a palavra que deseja pesquisar:";
         cin >> a;
     }
