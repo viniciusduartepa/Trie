@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1590288411 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\main.cpp
+	<iostream>
+	<string.h>
+	<cstring>
+	<string>
+	<fstream>
+	"Trie.h"
+
+1590288361 c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.h
+	<iostream>
+
+1590288395 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.cpp
+	<iostream>
+	<string.h>
+	<cstring>
+	<fstream>
+	<string>
+	"Trie.h"
+

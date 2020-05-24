@@ -1,8 +1,9 @@
+
 #ifndef TRIE_H_INCLUDED
 #define TRIE_H_INCLUDED
 
 #include <iostream>
-#include <map>
+
 #define CONST 28//n° de filhos do no
 
 using namespace std;
@@ -23,16 +24,14 @@ private:
     void Insert(char keys[],Node *p,int i);//segunda etapa da função insert
     void Insert(char keys[],char aux[],Node *p,int i);//terceira etapa da função insert
     string Search(char keys[],Node *p,int i);//segunda etapa da função search
-    string Suggest(char keys[],Node *p);//função de sugestão de palavras
+    void Suggest(Node *p);//função de sugestão de palavras
     void Creator();
-    void Suggest(char keys[],Node *p,map<int,string> &mp);
-    int indice;
 public:
+
     void Insert(char keys[]);//primeira etapa da função insert
     string Search(char keys[]);//primeira etapa da função search
 
-    Trie() {//construtor da arvore
-        indice=3;
+    Trie() {//construtor da raiz
         root=nullptr;
         Creator();
     };
