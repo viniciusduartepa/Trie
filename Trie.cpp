@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string.h>
 #include <cstring>
@@ -13,7 +14,7 @@ using namespace std;
 void Trie::Insert(char keys[]) {
     if(root==nullptr) {//inserção no caso da arvore vazia
         root=new Node();
-        root->word=keys;
+        strcpy(root->word,keys);
         return;
     } else {//caso arvore nao esteja vazia
         Insert(keys,root,0);
@@ -29,16 +30,17 @@ void Trie::Insert(char keys[],Node *p,int i) {
     else
         index=keys[i]-'A';
     if(p->pNode[index]==nullptr) {//caso para aquele chave o no nao apresente filhos
-        if(p->word==nullptr) {//caso nao seja um nó externo
+        if(strcmp(p->word,"")==0) {//caso seja um no externo
             p->pNode[index]=new Node();
-            p->pNode[index]->word=keys;
+             strcpy( p->pNode[index]->word,keys);
             return;
-        } else {//caso seja um no externo
-            if(strcmp(keys,p->word)!=0) {//palavra ja esta na lista
-                Insert(keys,p->word,p,i);
-                p->word=nullptr;
+        } else {//caso nao seja um nó externo
+            if(strcmp(keys,p->word)==0) {//palavra ja esta na lista
+                cout << keys << " " << p->word;
                 return;
             } else {//caso encontre uma palavra diferente
+                Insert(keys,p->word,p,i);
+                strcpy(p->word,"");
                 return;
             }
         }
@@ -68,9 +70,9 @@ void Trie::Insert(char keys[],char aux[],Node *p,int i) {//inserção no caso de u
         else
             index2=aux[i]-'A';
         p->pNode[index]=new Node();
-        p->pNode[index]->word=keys;
+        strcpy(p->pNode[index]->word,keys);
         p->pNode[index2]=new Node();
-        p->pNode[index2]->word=aux;
+        strcpy(p->pNode[index2]->word,aux);
         return;
     }
 }
@@ -90,7 +92,7 @@ string Trie::Search(char keys[],Node *p,int i) {
     else
         index=keys[i]-'A';
     if(p->pNode[index]==nullptr) {//caso o no nao tenha filhos para aquela chave
-        if(p->word==nullptr) {//caso nao tenha encontrado nenhuma palavra
+        if(strcmp(p->word,"")==0) {//caso nao tenha encontrado nenhuma palavra
             return Suggest(keys,p);//sugere todas palavras que tem aquele prefixo
         } else {//caso tenha encontrado uma palavra
             if(strcmp(keys,p->word)==0) {//palavra encontrada
@@ -105,7 +107,7 @@ string Trie::Search(char keys[],Node *p,int i) {
     }
 }
 string Trie::Suggest(char keys[],Node *p) {//sugere todas a palavras que compartilham daquele no
-    if(p->word!=nullptr){
+    if(strcmp(p->word,"")!=0){
         int n;
             cout << "1-DIGITAR UMA NOVA PALAVRA";
             cout << "\n2-SUBSTITUIR " << keys << " POR " << p->word;
@@ -149,22 +151,60 @@ void Trie::Suggest(char keys[],Node *p,map<int,string> &mp,int &mpi) {
             Suggest(keys,p->pNode[i],mp,mpi);
         }
     }
-    if(p->word!=nullptr){
+    if(strcmp(p->word,"")!=0){
         mp[mpi]=p->word;
         cout << "\n" << mpi <<"-SUBSTITUIR " << keys << " POR " << p->word;
         mpi++;
     }
 }
 void Trie::Creator() {
-    fstream file;
-    file.open("test.txt",fstream::in);
+    fstream file("palavras_atualizado.txt");
     if(file.is_open()) {
         string line;
         while(getline(file,line)) {
-            char *ch=new char;
+            char ch[30];
             strcpy(ch,line.c_str());
             Insert(ch);
         }
         file.close();
+    }
+}
+void Trie::Prefix(char keys[]){
+    if(root==nullptr){
+        cout << "Arvore Vazia\n";
+    }else
+    {
+        Prefix(keys,root,0);
+    }
+}
+void Trie::Prefix(char keys[],Node *p,int i){
+    int index;
+    if(keys[i]=='\0')
+        index=26;
+    else if(keys[i]=='-')
+        index=27;
+    else
+        index=keys[i]-'A';
+        if(p->pNode[index]==nullptr ){
+            if(keys[i]=='\0')
+                Suggest_Prefix(p);
+                else
+                cout << "nao a palavras com esse prefixo";
+            }else
+        if(keys[i]=='\0'){
+            Suggest_Prefix(p);
+        }else{
+        Prefix(keys,p->pNode[index],i+1);
+        return;
+        }
+}
+void Trie::Suggest_Prefix(Node *p){
+    for(int i=0;i<CONST;i++){
+        if(p->pNode[i]!=nullptr){
+            Suggest_Prefix(p->pNode[i]);
+        }
+    }
+    if(strcmp(p->word,"")!=0){
+        cout << "\n" << p->word;
     }
 }

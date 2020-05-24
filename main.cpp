@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string.h>
 #include <cstring>
@@ -14,9 +13,10 @@ int main() {
     cout << "\nDigite a palavra que deseja pesquisar:";
     cin >> a;
     while(a!="1") {
-        char *c;
+        char c[50];
         strcpy(c,a.c_str());
-        cout << t.Search(c);
+        t.Prefix(c);
+        //cout << t.Search(c);
         cout << "\nDigite a palavra que deseja pesquisar:";
         cin >> a;
     }
