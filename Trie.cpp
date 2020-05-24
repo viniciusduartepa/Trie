@@ -93,11 +93,13 @@ string Trie::Search(char keys[],Node *p,int i) {
         index=keys[i]-'A';
     if(p->pNode[index]==nullptr) {//caso o no nao tenha filhos para aquela chave
         if(strcmp(p->word,"")==0) {//caso nao tenha encontrado nenhuma palavra
+            cout << keys << " NAO ESTA NO DICIONARIO!\n";
             return Suggest(keys,p);//sugere todas palavras que tem aquele prefixo
         } else {//caso tenha encontrado uma palavra
             if(strcmp(keys,p->word)==0) {//palavra encontrada
                 return keys;
             } else {//palavra diferente encontrada
+                cout << keys << " NAO ESTA NO DICIONARIO\n";
                 return Suggest(keys,p);
             }
         }
