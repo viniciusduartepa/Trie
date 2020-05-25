@@ -17,7 +17,7 @@ private:
         Node() {//construtor do no
             for(int j=0; j<CONST; j++)
                 pNode[j]=nullptr;
-                strcpy(word,"");
+                strcpy(word,"");//indicador de no externo
         };
     };
     Node *root;//ponteiro da raiz

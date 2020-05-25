@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1590359314 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\main.cpp
+1590364506 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\main.cpp
 	<iostream>
 	<string.h>
 	<cstring>
@@ -7,13 +7,15 @@
 	<fstream>
 	<stdlib.h>
 	<stdio.h>
+	<windows.h>
+	<conio.h>
 	"Trie.h"
 
-1590351560 c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.h
+1590365501 c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.h
 	<iostream>
 	<map>
 
-1590358829 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.cpp
+1590365501 source:c:\users\samsung\documents\unifei\2020.1\aeds 2\trabalho pratico_trie\corrector\trie.cpp
 	<iostream>
 	<string.h>
 	<cstring>
