@@ -83,13 +83,6 @@ int main() {
                 file1.close();
             } else
                 cout << "arquivos nao foram abertos";
-            /*//VARRER O ARQUIVO DE ENTRADA E MOSTRAR AS OPCOES PARA CORRECAO
-            cout << "CORRIGIR PALAVRA 'VACINE' ?    \n\nOPCOES DE CORRECAO: \n[ 1 - VACINA ]\n[ 2 - VACINADO ]";
-            //cin >> t;
-            //RECEBER OPCAO DO USUARIO
-            cout << "\n\nCORRIGIR? ";
-            cin >> t;*/
-
             gotoxy(5,16);
             file1.open("corrigido.txt");
             if(file1.is_open()) {//mostra o conteudo do arquivo corrigido
@@ -126,7 +119,7 @@ int main() {
             break;
 
         default:
-            cout << "OPCAO INVALIDA";
+            cout << "\t\t\t\t\tOPCAO INVALIDA\n\t\t\t";
             system("pause");
         }
         n=menu();
